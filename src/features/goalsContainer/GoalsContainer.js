@@ -2,8 +2,17 @@ import React, { useState } from "react";
 import Goals from "../goals/Goals";
 import GoalForm from "../goalForm/GoalForm";
 import { v4 as uuidv4 } from "uuid";
+import { Grid } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
-export default function GoalsContainer() {
+const styles = {
+  gridContainer: {
+    flexWrap: "no-wrap",
+    justifyContent: "center",
+  },
+};
+
+function GoalsContainer({ classes }) {
   const [goals, setGoals] = useState({
     id1: {
       id: "id1",
@@ -33,21 +42,48 @@ export default function GoalsContainer() {
   };
 
   const addGoal = (text) => {
-    const newGoalId = uuidv4();
-    setGoals((prevGoals) => ({
-      ...prevGoals,
-      [newGoalId]: {
-        id: newGoalId,
-        complete: false,
-        text,
-      },
-    }));
+    if (text) {
+      const newGoalId = uuidv4();
+      setGoals((prevGoals) => ({
+        ...prevGoals,
+        [newGoalId]: {
+          id: newGoalId,
+          complete: false,
+          text,
+        },
+      }));
+    }
+  };
+
+  const removeGoal = (id) => {
+    setGoals((prevGoals) => {
+      const newGoals = Object.keys(prevGoals).reduce((obj, key) => {
+        if (key !== id) {
+          obj[key] = prevGoals[key];
+        }
+        return obj;
+      }, {});
+      return newGoals;
+    });
   };
 
   return (
-    <div>
-      <GoalForm addGoal={addGoal} />
-      <Goals goals={goals} markAsComplete={markAsComplete} />
-    </div>
+    <Grid container className={classes.gridContainer}>
+      <Grid item xs={11} md={7}>
+        <GoalForm addGoal={addGoal} />
+      </Grid>
+      <Grid item xs={11} md={7}>
+        <br />
+      </Grid>
+      <Grid item xs={11} md={7}>
+        <Goals
+          goals={goals}
+          markAsComplete={markAsComplete}
+          removeGoal={removeGoal}
+        />
+      </Grid>
+    </Grid>
   );
 }
+
+export default withStyles(styles)(GoalsContainer);

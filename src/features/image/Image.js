@@ -2,12 +2,44 @@ import React, { useState } from "react";
 import Weather from "../weather/Weather";
 import GoalsContainer from "../goalsContainer/GoalsContainer";
 import Quote from "../quote/Quote";
+import { IconButton } from "@material-ui/core";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
+import { withStyles } from "@material-ui/core/styles";
+
 import milford1 from "../../images/milford1.jpg";
 import milford2 from "../../images/milford2.jpg";
 import milford3 from "../../images/milford3.jpg";
 import milford4 from "../../images/milford4.jpg";
 
-export default function Image() {
+const styles = {
+  gridContainer: {
+    height: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    flexWrap: "no-wrap",
+    justifyContent: "space-between",
+    boxSizing: "border-box",
+    backgroundSize: "cover",
+  },
+  prevButton: {
+    position: "absolute",
+    top: "50vh",
+    left: "0",
+    color: "white",
+  },
+  nextButton: {
+    position: "absolute",
+    top: "50vh",
+    right: "0",
+    color: "white",
+  },
+  weatherContainer: {
+    alignSelf: "flex-end",
+  },
+};
+
+function Image({ classes }) {
   const [images, setImages] = useState([
     milford1,
     milford2,
@@ -38,13 +70,23 @@ export default function Image() {
 
   return (
     <div
-      style={{ backgroundImage: `url(${images[imageIndex]})`, height: "100vh" }}
+      container
+      className={classes.gridContainer}
+      style={{ backgroundImage: `url(${images[imageIndex]})` }}
     >
-      <button onClick={handlePrevClick}>Previous</button>
-      <button onClick={handleNextClick}>Next</button>
-      <Weather />
+      <IconButton onClick={handlePrevClick} className={classes.prevButton}>
+        <NavigateBeforeIcon />
+      </IconButton>
+      <IconButton onClick={handleNextClick} className={classes.nextButton}>
+        <NavigateNextIcon />
+      </IconButton>
+      <div className={classes.weatherContainer}>
+        <Weather />
+      </div>
       <GoalsContainer />
       <Quote />
     </div>
   );
 }
+
+export default withStyles(styles)(Image);
