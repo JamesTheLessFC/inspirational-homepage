@@ -14,7 +14,7 @@ const styles = {
 function Goals({ goals, markAsComplete, classes, removeGoal }) {
   return (
     <Paper className={classes.paper}>
-      <Grid container justify="center">
+      <Grid container justify="center" className={classes.gridContainer}>
         {Object.entries(goals).map((goal) => (
           <Goal
             key={goal[1].id}

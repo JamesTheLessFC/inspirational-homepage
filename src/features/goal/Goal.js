@@ -6,11 +6,20 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
 const styles = {
   paper: {
-    backgroundColor: "rgb(97, 71, 150)",
+    backgroundColor: "RebeccaPurple",
     padding: "1rem",
     margin: "1rem",
     color: "white",
     position: "relative",
+    "&:nth-child(2n)": {
+      backgroundColor: "IndianRed",
+    },
+    "&:nth-child(3n)": {
+      backgroundColor: "SeaGreen",
+    },
+    "&:nth-child(4n)": {
+      backgroundColor: "SteelBlue",
+    },
   },
   removeButton: {
     position: "absolute",
