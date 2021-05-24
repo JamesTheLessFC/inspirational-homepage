@@ -69,13 +69,13 @@ function GoalsContainer({ classes }) {
 
   return (
     <Grid container className={classes.gridContainer}>
-      <Grid item xs={11} md={7}>
+      <Grid item xs={11} sm={9} md={7} lg={6}>
         <GoalForm addGoal={addGoal} />
       </Grid>
-      <Grid item xs={11} md={7}>
+      <Grid item xs={12}>
         <br />
       </Grid>
-      <Grid item xs={11} md={7}>
+      <Grid item xs={11} sm={9} md={7} lg={6}>
         <Goals
           goals={goals}
           markAsComplete={markAsComplete}

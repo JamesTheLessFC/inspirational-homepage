@@ -6,6 +6,7 @@ import { IconButton } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import { withStyles } from "@material-ui/core/styles";
+import Time from "../time/Time";
 
 import milford1 from "../../images/milford1.jpg";
 import milford2 from "../../images/milford2.jpg";
@@ -34,8 +35,10 @@ const styles = {
     right: "0",
     color: "white",
   },
-  weatherContainer: {
-    alignSelf: "flex-end",
+  timeWeatherContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 };
 
@@ -80,7 +83,8 @@ function Image({ classes }) {
       <IconButton onClick={handleNextClick} className={classes.nextButton}>
         <NavigateNextIcon />
       </IconButton>
-      <div className={classes.weatherContainer}>
+      <div className={classes.timeWeatherContainer}>
+        <Time />
         <Weather />
       </div>
       <GoalsContainer />

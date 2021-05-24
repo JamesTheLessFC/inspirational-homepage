@@ -6,6 +6,8 @@ import { Grid, Paper } from "@material-ui/core";
 const styles = {
   paper: {
     backgroundColor: "rgba(255, 255, 255, 0.5)",
+    maxHeight: "20rem",
+    overflowY: "auto",
   },
 };
 

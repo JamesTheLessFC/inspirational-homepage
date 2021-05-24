@@ -45,12 +45,20 @@ const weatherIcons = {
 const styles = {
   gridContainer: {
     marginRight: "1rem",
+    width: "auto",
   },
   temperature: {
     color: "white",
+    marginBottom: "0",
+    textAlign: "left",
   },
   description: {
     color: "white",
+    textAlign: "left",
+    marginTop: ".5rem",
+  },
+  icon: {
+    height: "100px",
   },
 };
 
@@ -65,7 +73,7 @@ function Weather({ classes }) {
     <Grid container className={classes.gridContainer}>
       <img className={classes.icon} src={weather.icon} alt="weather icon" />
       <div>
-        <h3 className={classes.temperature}>{weather.temperature}&deg;</h3>
+        <h1 className={classes.temperature}>{weather.temperature}&deg;</h1>
         <p className={classes.description}>{weather.description}</p>
       </div>
     </Grid>

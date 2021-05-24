@@ -23,7 +23,7 @@ function Quote({ classes }) {
 
   return (
     <div className={classes.div}>
-      <p className={classes.text}>{quote.text}</p>
+      <p className={classes.text}>"{quote.text}"</p>
       <p className={classes.author}>{quote.author}</p>
     </div>
   );

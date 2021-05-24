@@ -24,7 +24,7 @@ function GoalForm({ addGoal, classes }) {
 
   return (
     <Paper className={classes.paper}>
-      <h2 className={classes.h3}>What's on your mind today?</h2>
+      <h2 className={classes.h3}>What are your goals for today?</h2>
       <form onSubmit={handleSubmit}>
         <TextField
           value={goal}
