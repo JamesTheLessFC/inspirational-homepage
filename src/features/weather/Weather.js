@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { selectWeather } from "./weatherSlice";
 
 import icon01d from "../../images/01d@2x.png";
 import icon01n from "../../images/01n@2x.png";
@@ -63,15 +65,15 @@ const styles = {
 };
 
 function Weather({ classes }) {
-  const [weather, setWeather] = useState({
-    temperature: "73.45",
-    icon: weatherIcons.icon01d,
-    description: "clear sky",
-  });
+  const weather = useSelector(selectWeather);
 
   return (
     <Grid container className={classes.gridContainer}>
-      <img className={classes.icon} src={weather.icon} alt="weather icon" />
+      <img
+        className={classes.icon}
+        src={weatherIcons[`icon${weather.icon}`]}
+        alt="weather icon"
+      />
       <div>
         <h1 className={classes.temperature}>{weather.temperature}&deg;</h1>
         <p className={classes.description}>{weather.description}</p>

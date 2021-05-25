@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import dayjs from "dayjs";
+import { setTime, selectTime } from "./timeSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const styles = {
   timeContainer: {
@@ -21,26 +23,35 @@ const styles = {
 };
 
 function Time({ classes }) {
-  const [time, setTime] = useState(dayjs());
+  const time = useSelector(selectTime);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setTime(dayjs());
+    const timer = setInterval(() => {
+      const newTime = {
+        hours: dayjs().format("h"),
+        minutes: dayjs().format("mm"),
+        ampm: dayjs().format("A"),
+        weekday: dayjs().format("dddd"),
+        month: dayjs().format("MMM"),
+        day: dayjs().format("DD"),
+      };
+      dispatch(setTime(newTime));
     }, 1000);
     return () => {
-      clearTimeout(timer);
+      clearInterval(timer);
     };
   });
 
   return (
     <div className={classes.timeContainer}>
       <h1 className={classes.time}>
-        {time.format("h")}:{time.format("mm")}&nbsp;
-        <span className={classes.ampm}>{time.format("A")}</span>
+        {time.hours}:{time.minutes}&nbsp;
+        <span className={classes.ampm}>{time.ampm}</span>
       </h1>
       <p className={classes.date}>
-        {time.format("dddd")},&nbsp;{time.format("MMM")}&nbsp;
-        {time.format("DD")}
+        {time.weekday},&nbsp;{time.month}&nbsp;
+        {time.day}
       </p>
     </div>
   );

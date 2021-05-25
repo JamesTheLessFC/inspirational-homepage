@@ -7,11 +7,8 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import { withStyles } from "@material-ui/core/styles";
 import Time from "../time/Time";
-
-import milford1 from "../../images/milford1.jpg";
-import milford2 from "../../images/milford2.jpg";
-import milford3 from "../../images/milford3.jpg";
-import milford4 from "../../images/milford4.jpg";
+import { useSelector } from "react-redux";
+import { selectImages } from "./imagesSlice";
 
 const styles = {
   gridContainer: {
@@ -43,12 +40,7 @@ const styles = {
 };
 
 function Image({ classes }) {
-  const [images, setImages] = useState([
-    milford1,
-    milford2,
-    milford3,
-    milford4,
-  ]);
+  const images = useSelector(selectImages);
   const [imageIndex, setImageIndex] = useState(0);
 
   const handlePrevClick = () => {
@@ -73,7 +65,7 @@ function Image({ classes }) {
 
   return (
     <div
-      container
+      container="true"
       className={classes.gridContainer}
       style={{ backgroundImage: `url(${images[imageIndex]})` }}
     >

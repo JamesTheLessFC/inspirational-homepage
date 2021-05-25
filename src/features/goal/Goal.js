@@ -3,6 +3,8 @@ import { Paper, IconButton } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import { removeGoal, markAsComplete } from "../goals/goalsSlice";
+import { useDispatch } from "react-redux";
 
 const styles = {
   paper: {
@@ -34,16 +36,17 @@ const styles = {
   },
 };
 
-function Goal({ goal, markAsComplete, classes, removeGoal }) {
+function Goal({ goal, classes }) {
   const { text, complete, id } = goal;
   const [displayButtons, setDisplayButtons] = useState(false);
+  const dispatch = useDispatch();
 
   const handleDoneClick = () => {
-    markAsComplete(id);
+    dispatch(markAsComplete(id));
   };
 
   const handleRemoveClick = () => {
-    removeGoal(id);
+    dispatch(removeGoal(id));
   };
 
   const handleMouseEnter = () => {

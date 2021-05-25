@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { TextField, Paper } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+import { addGoal } from "../goals/goalsSlice";
+import { useDispatch } from "react-redux";
 
 const styles = {
   paper: {
@@ -13,18 +15,19 @@ const styles = {
   },
 };
 
-function GoalForm({ addGoal, classes }) {
+function GoalForm({ classes }) {
   const [goal, setGoal] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addGoal(goal);
+    dispatch(addGoal(goal));
     setGoal("");
   };
 
   return (
     <Paper className={classes.paper}>
-      <h2 className={classes.h3}>What are your goals for today?</h2>
+      <h2 className={classes.h2}>What are your goals for today?</h2>
       <form onSubmit={handleSubmit}>
         <TextField
           value={goal}

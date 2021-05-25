@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { withStyles } from "@material-ui/core/styles";
+import { selectQuote } from "./quoteSlice";
+import { useSelector } from "react-redux";
 
 const styles = {
   div: {
@@ -16,10 +18,7 @@ const styles = {
 };
 
 function Quote({ classes }) {
-  const [quote, setQuote] = useState({
-    text: "Luke, I am your father.",
-    author: "Darth Vader",
-  });
+  const quote = useSelector(selectQuote);
 
   return (
     <div className={classes.div}>
