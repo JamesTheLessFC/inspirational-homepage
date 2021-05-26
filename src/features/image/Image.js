@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Weather from "../weather/Weather";
 import GoalsContainer from "../goalsContainer/GoalsContainer";
 import Quote from "../quote/Quote";
@@ -7,8 +7,8 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import { withStyles } from "@material-ui/core/styles";
 import Time from "../time/Time";
-import { useSelector } from "react-redux";
-import { selectImages } from "./imagesSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { selectImages, fetchImageUrls } from "./imagesSlice";
 
 const styles = {
   gridContainer: {
@@ -42,6 +42,11 @@ const styles = {
 function Image({ classes }) {
   const images = useSelector(selectImages);
   const [imageIndex, setImageIndex] = useState(0);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchImageUrls());
+  }, [dispatch]);
 
   const handlePrevClick = () => {
     setImageIndex((prevImageIndex) => {
