@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import { selectWeather, fetchCurrentWeather } from "./weatherSlice";
+import {
+  selectWeather,
+  fetchCurrentWeather,
+  setLocation,
+} from "./weatherSlice";
 
 import icon01d from "../../images/01d@2x.png";
 import icon01n from "../../images/01n@2x.png";
@@ -69,8 +73,31 @@ function Weather({ classes }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCurrentWeather());
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        dispatch(
+          setLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          })
+        );
+      },
+      (error) => {
+        console.error("Error Code = " + error.code + " - " + error.message);
+      }
+    );
   }, [dispatch]);
+
+  useEffect(() => {
+    if (weather.latitude && weather.longitude) {
+      dispatch(
+        fetchCurrentWeather({
+          latitude: weather.latitude,
+          longitude: weather.longitude,
+        })
+      );
+    }
+  }, [dispatch, weather.longitude, weather.latitude]);
 
   return (
     <Grid container className={classes.gridContainer}>

@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchWeather } from "./weatherAPI";
 
 const initialState = {
+  latitude: "",
+  longitude: "",
   temperature: "73.45",
   icon: "01d",
   description: "clear sky",
@@ -11,8 +13,8 @@ const initialState = {
 
 export const fetchCurrentWeather = createAsyncThunk(
   "weather/fetchCurrent",
-  async () => {
-    const response = await fetchWeather();
+  async (location) => {
+    const response = await fetchWeather(location);
     return response;
   }
 );
@@ -21,8 +23,9 @@ const weatherSlice = createSlice({
   name: "weather",
   initialState: initialState,
   reducers: {
-    setWeather: (weather, action) => {
-      weather = action.payload;
+    setLocation: (weather, action) => {
+      weather.latitude = action.payload.latitude;
+      weather.longitude = action.payload.longitude;
     },
   },
   extraReducers: {
@@ -34,6 +37,8 @@ const weatherSlice = createSlice({
         ...action.payload,
         loading: false,
         failedToLoad: false,
+        latitude: weather.latitude,
+        longitude: weather.longitude,
       };
     },
     [fetchCurrentWeather.rejected]: (weather) => {
@@ -45,6 +50,6 @@ const weatherSlice = createSlice({
 
 export const selectWeather = (state) => state.weather;
 
-export const { setWeather } = weatherSlice.actions;
+export const { setLocation } = weatherSlice.actions;
 
 export default weatherSlice.reducer;

@@ -7,11 +7,11 @@ const styles = {
   div: {
     backgroundColor: "rgba(0,0,0,0.5)",
     padding: "1rem",
+    boxSizing: "border-box",
   },
   text: {
     color: "white",
     fontStyle: "italic",
-    fontSize: "1.5rem",
     margin: "0",
   },
   author: {

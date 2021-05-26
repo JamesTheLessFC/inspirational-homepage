@@ -10,6 +10,8 @@ const styles = {
     backgroundColor: "rgba(255, 255, 255, 0.5)",
     maxHeight: "18rem",
     overflowY: "auto",
+    marginBottom: "1rem",
+    boxSizing: "border-box",
   },
 };
 
