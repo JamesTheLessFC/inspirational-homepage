@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const styles = {
   paper: {
     backgroundColor: "rgba(255, 255, 255, 0.5)",
-    maxHeight: "20rem",
+    maxHeight: "18rem",
     overflowY: "auto",
   },
 };
