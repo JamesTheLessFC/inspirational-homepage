@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
-import { useSelector } from "react-redux";
-import { selectWeather } from "./weatherSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { selectWeather, fetchCurrentWeather } from "./weatherSlice";
 
 import icon01d from "../../images/01d@2x.png";
 import icon01n from "../../images/01n@2x.png";
@@ -66,6 +66,11 @@ const styles = {
 
 function Weather({ classes }) {
   const weather = useSelector(selectWeather);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCurrentWeather());
+  }, [dispatch]);
 
   return (
     <Grid container className={classes.gridContainer}>
