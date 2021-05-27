@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectWeather,
@@ -49,9 +49,12 @@ const weatherIcons = {
 };
 
 const styles = {
-  gridContainer: {
-    marginRight: "1rem",
+  div: {
     width: "auto",
+    display: "flex",
+    marginRight: "1rem",
+    flexWrap: "no-wrap",
+    alignItems: "center",
   },
   temperature: {
     color: "white",
@@ -64,13 +67,17 @@ const styles = {
     marginTop: ".5rem",
   },
   icon: {
-    height: "100px",
+    height: "50px",
+    width: "50px",
+    backgroundPosition: "center",
+    marginRight: "1rem",
   },
 };
 
 function Weather({ classes }) {
   const weather = useSelector(selectWeather);
   const dispatch = useDispatch();
+  const matches = useMediaQuery("(max-width:400px)");
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -99,18 +106,24 @@ function Weather({ classes }) {
     }
   }, [dispatch, weather.longitude, weather.latitude]);
 
+  const weatherIcon = weatherIcons[`icon${weather.icon}`];
+
   return (
-    <Grid container className={classes.gridContainer}>
-      <img
+    <div className={classes.div}>
+      <div
         className={classes.icon}
-        src={weatherIcons[`icon${weather.icon}`]}
-        alt="weather icon"
-      />
+        style={{ backgroundImage: `url(${weatherIcon})` }}
+      ></div>
       <div>
-        <h1 className={classes.temperature}>{weather.temperature}&deg;</h1>
+        <h1
+          className={classes.temperature}
+          style={{ fontSize: matches ? "1.6rem" : "" }}
+        >
+          {weather.temperature}&deg;
+        </h1>
         <p className={classes.description}>{weather.description}</p>
       </div>
-    </Grid>
+    </div>
   );
 }
 

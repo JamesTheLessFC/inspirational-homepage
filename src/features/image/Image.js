@@ -12,13 +12,15 @@ import { selectImages, fetchImageUrls } from "./imagesSlice";
 
 const styles = {
   gridContainer: {
-    height: "100vh",
+    height: "100%",
+    minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
     flexWrap: "no-wrap",
     justifyContent: "space-between",
     boxSizing: "border-box",
     backgroundSize: "cover",
+    minWidth: "320px",
   },
   prevButton: {
     position: "absolute",

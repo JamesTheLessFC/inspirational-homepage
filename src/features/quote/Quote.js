@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 const styles = {
   div: {
     backgroundColor: "rgba(0,0,0,0.5)",
-    padding: "1rem",
+    padding: "1rem 1rem 0 1rem",
     boxSizing: "border-box",
   },
   text: {
@@ -18,7 +18,6 @@ const styles = {
     color: "rgba(255, 255, 255, 0.7)",
   },
   span: {
-    zIndex: "50",
     fontSize: "0.9rem",
     fontWeight: "bold",
   },

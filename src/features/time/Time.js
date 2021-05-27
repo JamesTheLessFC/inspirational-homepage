@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 const styles = {
   timeContainer: {
-    marginLeft: "1rem",
+    margin: "0 1rem",
     textAlign: "left",
   },
   time: {
@@ -32,7 +32,7 @@ function Time({ classes }) {
         hours: dayjs().format("h"),
         minutes: dayjs().format("mm"),
         ampm: dayjs().format("A"),
-        weekday: dayjs().format("dddd"),
+        weekday: dayjs().format("ddd"),
         month: dayjs().format("MMM"),
         day: dayjs().format("DD"),
       };
