@@ -12,6 +12,7 @@ const styles = {
     padding: "1rem",
     margin: "1rem",
     color: "white",
+    zIndex: 20,
     position: "relative",
     "&:nth-child(2n)": {
       backgroundColor: "IndianRed",
@@ -36,13 +37,14 @@ const styles = {
   },
 };
 
-function Goal({ goal, classes }) {
+function Goal({ goal, classes, rainConfetti }) {
   const { text, complete, id } = goal;
   const [displayButtons, setDisplayButtons] = useState(false);
   const dispatch = useDispatch();
 
-  const handleDoneClick = () => {
+  const handleDoneClick = (e) => {
     dispatch(markAsComplete(id));
+    rainConfetti(e);
   };
 
   const handleRemoveClick = () => {

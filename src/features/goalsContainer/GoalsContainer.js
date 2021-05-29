@@ -12,7 +12,7 @@ const styles = {
   },
 };
 
-function GoalsContainer({ classes }) {
+function GoalsContainer({ classes, rainConfetti }) {
   const [goals, setGoals] = useState({
     id1: {
       id: "id1",
@@ -80,6 +80,7 @@ function GoalsContainer({ classes }) {
           goals={goals}
           markAsComplete={markAsComplete}
           removeGoal={removeGoal}
+          rainConfetti={rainConfetti}
         />
       </Grid>
     </Grid>

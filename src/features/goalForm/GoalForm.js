@@ -9,6 +9,7 @@ const styles = {
     backgroundColor: "rgba(255, 255, 255, 0.5)",
     padding: "1rem",
     boxSizing: "border-box",
+    marginTop: "1rem",
   },
   h2: {
     margin: "0",

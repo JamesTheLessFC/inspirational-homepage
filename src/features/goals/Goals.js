@@ -15,14 +15,14 @@ const styles = {
   },
 };
 
-function Goals({ classes }) {
+function Goals({ classes, rainConfetti }) {
   const goals = useSelector(selectGoals);
 
   return (
     <Paper className={classes.paper}>
       <Grid container justify="center" className={classes.gridContainer}>
         {Object.entries(goals).map((goal) => (
-          <Goal key={goal[1].id} goal={goal[1]} />
+          <Goal key={goal[1].id} goal={goal[1]} rainConfetti={rainConfetti} />
         ))}
       </Grid>
     </Paper>

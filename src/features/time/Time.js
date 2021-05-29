@@ -12,6 +12,7 @@ const styles = {
   time: {
     color: "white",
     marginBottom: "0",
+    marginTop: "0",
   },
   ampm: {
     fontSize: "1.5rem",
@@ -19,6 +20,7 @@ const styles = {
   date: {
     color: "white",
     marginTop: ".5rem",
+    marginBottom: "0",
   },
 };
 

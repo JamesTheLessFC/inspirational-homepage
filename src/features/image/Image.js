@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Weather from "../weather/Weather";
 import GoalsContainer from "../goalsContainer/GoalsContainer";
 import Quote from "../quote/Quote";
@@ -9,6 +9,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Time from "../time/Time";
 import { useSelector, useDispatch } from "react-redux";
 import { selectImages, fetchImageUrls } from "./imagesSlice";
+import ReactCanvasConfetti from "react-canvas-confetti";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const styles = {
   gridContainer: {
@@ -21,6 +23,8 @@ const styles = {
     boxSizing: "border-box",
     backgroundSize: "cover",
     minWidth: "320px",
+    zIndex: -2,
+    paddingTop: "1rem",
   },
   prevButton: {
     position: "absolute",
@@ -45,6 +49,8 @@ function Image({ classes }) {
   const images = useSelector(selectImages);
   const [imageIndex, setImageIndex] = useState(0);
   const dispatch = useDispatch();
+  const confettiEl = useRef(null);
+  const { height, width } = useWindowDimensions();
 
   useEffect(() => {
     dispatch(fetchImageUrls());
@@ -70,6 +76,15 @@ function Image({ classes }) {
     });
   };
 
+  const rainConfetti = (e) => {
+    confettiEl.current.confetti({
+      origin: {
+        x: e.pageX / width,
+        y: e.pageY / height,
+      },
+    });
+  };
+
   return (
     <div
       container="true"
@@ -86,7 +101,16 @@ function Image({ classes }) {
         <Time />
         <Weather />
       </div>
-      <GoalsContainer />
+      <GoalsContainer rainConfetti={rainConfetti} />
+      <ReactCanvasConfetti
+        ref={confettiEl}
+        style={{
+          position: "fixed",
+          height: "100vh",
+          width: "100vw",
+          pointerEvents: "none",
+        }}
+      />
       <Quote />
     </div>
   );
