@@ -4,10 +4,10 @@ import { fetchWeather } from "./weatherAPI";
 const initialState = {
   latitude: "",
   longitude: "",
-  temperature: "73.45",
-  icon: "01d",
-  description: "clear sky",
-  loading: false,
+  temperature: "",
+  icon: "",
+  description: "",
+  loading: true,
   failedToLoad: false,
 };
 

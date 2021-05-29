@@ -2,8 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchQuoteOfTheDay } from "./quoteAPI";
 
 const initialState = {
-  text: "There is no try.",
-  author: "Yoda",
+  text: "",
+  author: "",
+  loading: true,
+  failedToLoad: false,
 };
 
 export const fetchQuote = createAsyncThunk("quote/fetchQuote", async () => {
@@ -14,12 +16,6 @@ export const fetchQuote = createAsyncThunk("quote/fetchQuote", async () => {
 const quoteSlice = createSlice({
   name: "quote",
   initialState: initialState,
-  reducers: {
-    setQuote: (quote, action) => {
-      quote.text = action.payload.text;
-      quote.author = action.payload.author;
-    },
-  },
   extraReducers: {
     [fetchQuote.pending]: (quote) => {
       quote.loading = true;
@@ -37,8 +33,6 @@ const quoteSlice = createSlice({
     },
   },
 });
-
-export const { setQuote } = quoteSlice.actions;
 
 export const selectQuote = (state) => {
   return state.quote;

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Weather from "../weather/Weather";
 import GoalsContainer from "../goalsContainer/GoalsContainer";
 import Quote from "../quote/Quote";
-import { IconButton } from "@material-ui/core";
+import { IconButton, CircularProgress } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import { withStyles } from "@material-ui/core/styles";
@@ -26,6 +26,9 @@ const styles = {
     zIndex: -2,
     paddingTop: "1rem",
   },
+  progressContainer: {
+    textAlign: "center",
+  },
   prevButton: {
     position: "absolute",
     top: "50vh",
@@ -43,6 +46,24 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
   },
+  failMessage: {
+    color: "white",
+    margin: "0 auto",
+    border: "1px solid white",
+    borderRadius: "5px",
+    padding: ".5rem",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  refreshButton: {
+    border: "none",
+    backgroundColor: "transparent",
+    color: "lightcoral",
+    fontSize: "1rem",
+    "&:hover": {
+      textDecoration: "underline",
+      cursor: "pointer",
+    },
+  },
 };
 
 function Image({ classes }) {
@@ -59,7 +80,7 @@ function Image({ classes }) {
   const handlePrevClick = () => {
     setImageIndex((prevImageIndex) => {
       if (prevImageIndex === 0) {
-        return images.length - 1;
+        return images.images.length - 1;
       } else {
         return prevImageIndex - 1;
       }
@@ -68,7 +89,7 @@ function Image({ classes }) {
 
   const handleNextClick = () => {
     setImageIndex((prevImageIndex) => {
-      if (prevImageIndex === images.length - 1) {
+      if (prevImageIndex === images.images.length - 1) {
         return 0;
       } else {
         return prevImageIndex + 1;
@@ -85,35 +106,89 @@ function Image({ classes }) {
     });
   };
 
-  return (
-    <div
-      container="true"
-      className={classes.gridContainer}
-      style={{ backgroundImage: `url(${images[imageIndex]})` }}
-    >
-      <IconButton onClick={handlePrevClick} className={classes.prevButton}>
-        <NavigateBeforeIcon />
-      </IconButton>
-      <IconButton onClick={handleNextClick} className={classes.nextButton}>
-        <NavigateNextIcon />
-      </IconButton>
-      <div className={classes.timeWeatherContainer}>
-        <Time />
-        <Weather />
+  if (images.loading) {
+    return (
+      <div
+        container="true"
+        className={classes.gridContainer}
+        style={{ backgroundColor: "mintcream" }}
+      >
+        <div className={classes.timeWeatherContainer}>
+          <Time />
+          <Weather />
+        </div>
+        <div className={classes.progressContainer}>
+          <CircularProgress />
+        </div>
+        <Quote />
       </div>
-      <GoalsContainer rainConfetti={rainConfetti} />
-      <ReactCanvasConfetti
-        ref={confettiEl}
-        style={{
-          position: "fixed",
-          height: "100vh",
-          width: "100vw",
-          pointerEvents: "none",
-        }}
-      />
-      <Quote />
-    </div>
-  );
+    );
+  } else if (images.failedToLoad) {
+    return (
+      <div
+        container="true"
+        className={classes.gridContainer}
+        style={{ backgroundColor: "lightskyblue" }}
+      >
+        <div className={classes.timeWeatherContainer}>
+          <Time />
+          <Weather />
+        </div>
+        <p className={classes.failMessage}>
+          Images failed to load.
+          <br /> Please{" "}
+          <button
+            className={classes.refreshButton}
+            onClick={() => window.location.reload()}
+          >
+            refresh page
+          </button>{" "}
+          to try again.
+        </p>
+        <GoalsContainer rainConfetti={rainConfetti} />
+        <ReactCanvasConfetti
+          ref={confettiEl}
+          style={{
+            position: "fixed",
+            height: "100vh",
+            width: "100vw",
+            pointerEvents: "none",
+          }}
+        />
+        <Quote />
+      </div>
+    );
+  } else {
+    return (
+      <div
+        container="true"
+        className={classes.gridContainer}
+        style={{ backgroundImage: `url(${images.images[imageIndex]})` }}
+      >
+        <IconButton onClick={handlePrevClick} className={classes.prevButton}>
+          <NavigateBeforeIcon />
+        </IconButton>
+        <IconButton onClick={handleNextClick} className={classes.nextButton}>
+          <NavigateNextIcon />
+        </IconButton>
+        <div className={classes.timeWeatherContainer}>
+          <Time />
+          <Weather />
+        </div>
+        <GoalsContainer rainConfetti={rainConfetti} />
+        <ReactCanvasConfetti
+          ref={confettiEl}
+          style={{
+            position: "fixed",
+            height: "100vh",
+            width: "100vw",
+            pointerEvents: "none",
+          }}
+        />
+        <Quote />
+      </div>
+    );
+  }
 }
 
 export default withStyles(styles)(Image);
