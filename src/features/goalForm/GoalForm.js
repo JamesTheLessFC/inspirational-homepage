@@ -34,6 +34,7 @@ function GoalForm({ classes }) {
           value={goal}
           onChange={(e) => setGoal(e.currentTarget.value)}
           label="New Goal"
+          fullWidth
         />
       </form>
     </Paper>

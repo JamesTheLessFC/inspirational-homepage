@@ -67,6 +67,7 @@ const styles = {
     textAlign: "right",
     marginTop: ".5rem",
     marginBottom: "0",
+    textTransform: "uppercase",
   },
   icon: {
     height: "50px",
